@@ -2,7 +2,6 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:edit, :destroy]
 
   def index
-    @account = Account.new
     @accounts = policy_scope(Account).order(created_at: :desc)
   end
 
