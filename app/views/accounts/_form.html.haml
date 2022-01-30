@@ -4,4 +4,6 @@
     = simple_form_for @account do |f|
       = f.input :name
       = f.input :description
-      = f.submit class: 'btn btn-primary'
+      .form-buttons
+        = link_to 'Cancel', accounts_path, class: 'btn btn-primary back-button'
+        = f.submit class: 'btn btn-primary'
