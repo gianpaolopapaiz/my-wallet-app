@@ -1,4 +1,7 @@
-= simple_form_for @account, remote: true do |f|
-  = f.input :name
-  = f.input :description
-  = f.submit
+.form-wrapper
+  .main-form
+    %h4 Account Details
+    = simple_form_for @account do |f|
+      = f.input :name
+      = f.input :description
+      = f.submit class: 'btn btn-primary'

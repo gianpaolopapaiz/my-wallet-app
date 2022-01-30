@@ -1,0 +1,11 @@
+%h3 My Accounts
+= link_to 'Add Account', new_account_path, class: 'btn btn-primary'
+
+-if @accounts.present?
+  - @accounts.each do |account|
+    = account.name
+    %button.btn.btn-primary{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
+      Edit Account
+
+- else
+  %p (There are no accounts yet.)
