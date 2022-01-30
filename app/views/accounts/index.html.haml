@@ -1,12 +1,15 @@
 :css
   .add-button {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
+    row-gap: 10px;
+    flex-wrap: wrap;
   }
 
-%h3 Accounts Overview
 .add-button
+  %h3 Accounts Overview
   = link_to 'Add Account', new_account_path, class: 'btn btn-primary btn-sm'
 
 -if @accounts.present?
