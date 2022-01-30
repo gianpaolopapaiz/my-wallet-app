@@ -1,0 +1,19 @@
+.fas {
+  text-decoration: none;
+}
+
+.fa-pencil-alt {
+  color: green;
+
+  &:hover {
+    color: darkgreen;
+  }
+}
+
+.fa-trash-alt {
+  color: red;
+
+  &:hover {
+    color: darkred;
+  }
+}
