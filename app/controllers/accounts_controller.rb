@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:edit, :delete]
+  before_action :set_account, only: [:edit, :destroy]
 
   def index
     @account = Account.new
@@ -21,6 +21,13 @@ class AccountsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def destroy;
+    @account.destroy
+    redirect_to accounts_path
+  end
+
   private
 
   def accounts_params
@@ -29,5 +36,6 @@ class AccountsController < ApplicationController
 
   def set_account
     @account = current_user.accounts.find(params[:id])
+    authorize @account
   end
 end
