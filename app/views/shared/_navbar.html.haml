@@ -1,0 +1,32 @@
+.navbar.navbar-expand-sm.navbar-light.navbar-lewagon
+  .container-fluid
+    = link_to accounts_path, class: "navbar-brand" do
+      %i.fas.fa-wallet{style:'color: green'}
+    %button.navbar-toggler{"aria-controls":
+                           "navbarSupportedContent",
+                           "aria-expanded": "false",
+                           "aria-label": "Toggle navigation",
+                           "data-bs-target": "#navbarSupportedContent",
+                           "data-bs-toggle": "collapse",
+                           type: "button"}
+      %span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.me-auto.d-flex.align-items-center
+        - if user_signed_in?
+          %li.nav-item.active
+            = link_to "", categories_path, class: "nav-link far fa-folder-open",
+                               title: "Categories",
+                               style: 'font-size:25px;color:green'
+          %li.nav-item.dropdown
+            %i.far.fa-user-circle{id: "navbarDropdown",
+                                  title: 'User',
+                                  style: 'font-size:30px;color:green',
+                                  data: { bs_toggle: "dropdown" },
+                                  'aria-haspopup': true,
+                                  'aria-expanded': false }
+            .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "navbarDropdown"}
+              = link_to "Edit User", "#", class: "dropdown-item"
+              = link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item"
+        - else
+          %li.nav-item
+            = link_to "Login", new_user_session_path, class: "nav-link"
