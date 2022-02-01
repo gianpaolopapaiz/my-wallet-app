@@ -1,1 +1,16 @@
-%h2 Categories Index
+.add-button
+  %h3 Categories
+  = link_to 'Add category', new_category_path, class: 'btn btn-primary btn-sm'
+
+-if @categories.present?
+  %table.table.table-hover
+    %thead
+      %tr
+        %th{ scope: 'col' }Category
+        %th{ scope: 'col' }Description
+        %th{ scope: 'col' }Action
+    %tbody
+      - @categories.each do |category|
+        = render 'category_row', category: category
+- else
+  %p (There are no categories yet.)

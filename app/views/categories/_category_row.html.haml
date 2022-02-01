@@ -1,0 +1,12 @@
+%tr
+  %th{ scope: 'row' }
+    = category.name
+  %td
+    = category.description
+  %td
+    .action-column
+      = link_to '', edit_category_path(category), class: 'fas fa-pencil-alt'
+      = link_to '', category_path(category),
+                            method: :delete,
+                            data: { confirm: 'Are you sure that you want to delete this category?' },
+                            class: 'fas fa-trash-alt'
