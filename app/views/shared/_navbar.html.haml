@@ -14,6 +14,10 @@
       %ul.navbar-nav.me-auto.d-flex.align-items-center
         - if user_signed_in?
           %li.nav-item.active
+            = link_to "", accounts_path, class: "nav-link fas fa-home",
+                               title: "Home",
+                               style: 'font-size:25px;color:green'
+          %li.nav-item.active
             = link_to "", categories_path, class: "nav-link far fa-folder-open",
                                title: "Categories",
                                style: 'font-size:25px;color:green'
