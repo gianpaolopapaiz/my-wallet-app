@@ -1,0 +1,13 @@
+%tr
+  %td= transaction.date
+  %td= transaction.name
+  %td= transaction.description
+  %td= transaction.value
+  %td= transaction.category.name
+  %td
+    .action-column
+      = link_to '', edit_transaction_path(transaction), class: 'fas fa-pencil-alt'
+      = link_to '', transaction_path(transaction),
+                            method: :delete,
+                            data: { confirm: 'Are you sure that you want to delete this transaction?' },
+                            class: 'fas fa-trash-alt'

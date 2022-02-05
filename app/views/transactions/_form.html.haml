@@ -1,0 +1,13 @@
+.form-wrapper
+  .main-form
+    %h4 Transaction
+    -# simple_form_models: new = [@account, @transaction] | edit = [@transaction]
+    = simple_form_for @simple_form_models do |f|
+      = f.input :date
+      = f.input :name
+      = f.input :description
+      = f.input :value
+      = f.association :category, collection: current_user.categories.order(:name), prompt: 'Choose a category'
+      .form-buttons
+        = link_to 'Cancel', account_transactions_path(@account), class: 'btn btn-outline-primary'
+        = f.submit class: 'btn btn-primary'
