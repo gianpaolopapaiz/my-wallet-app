@@ -4,6 +4,8 @@
   %td= transaction.description
   %td{class: "#{transaction.value.positive? ? 'positive-number' : 'negative-number'}"}
     = number_to_currency(transaction.value)
+  %td{class: "#{transaction.value.positive? ? 'positive-number' : 'negative-number'}"}
+    = number_to_currency(transaction.account_balance)
   %td= transaction.category.name
   %td
     .action-column

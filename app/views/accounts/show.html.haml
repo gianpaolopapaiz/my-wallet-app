@@ -2,7 +2,7 @@
   %h3 #{@account.name} / Transactions
   = link_to 'Add Transaction',  new_account_transaction_path(@account), class: 'btn btn-primary btn-sm'
 
--if @account.transactions.present?
+-if @transactions.present?
   %table.table.table-hover
     %thead
       %tr
@@ -10,10 +10,11 @@
         %th{ scope: 'col' }Name
         %th{ scope: 'col' }Description
         %th{ scope: 'col' }Value
+        %th{ scope: 'col' }Balance
         %th{ scope: 'col' }Category
         %th{ scope: 'col' }Action
     %tbody
-      - @account.transactions.each do |transaction|
+      - @transactions.each do |transaction|
         = render 'transactions/transaction_row', transaction: transaction
 - else
   %p (There are no transactions yet.)
