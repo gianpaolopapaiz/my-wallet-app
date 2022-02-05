@@ -5,4 +5,8 @@ class Account < ApplicationRecord
   # Validations
   validates :name, length: { maximum: 20 }, presence: true
   validates :description, length: { maximum: 50 }
+
+  def total
+    transactions.sum(:value)
+  end
 end

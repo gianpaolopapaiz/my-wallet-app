@@ -2,7 +2,7 @@
   %td= transaction.date
   %td= transaction.name
   %td= transaction.description
-  %td= transaction.value
+  %td= number_to_currency(transaction.value)
   %td= transaction.category.name
   %td
     .action-column
