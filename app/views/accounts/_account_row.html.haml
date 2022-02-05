@@ -1,8 +1,7 @@
 %tr
-  %th{ scope: 'row' }
-    = link_to account.name, account_transactions_path(account)
-  %td
-    = account.description
+  %th{ scope: 'row' }= link_to account.name, account_transactions_path(account)
+  %td= account.description
+  %td= number_to_currency(account.total)
   %td
     .action-column
       = link_to '', edit_account_path(account), class: 'fas fa-pencil-alt'
