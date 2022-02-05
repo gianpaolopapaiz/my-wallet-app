@@ -1,7 +1,10 @@
 %tr
   %th{ scope: 'row' }= link_to account.name, account_transactions_path(account)
   %td= account.description
-  %td= number_to_currency(account.total)
+  %td{class: "#{account.balance.positive? ? 'positive-number' : 'negative-number'}"}
+    = number_to_currency(account.initial_amount)
+  %td{class: "#{account.balance.positive? ? 'positive-number' : 'negative-number'}"}
+    = number_to_currency(account.balance)
   %td
     .action-column
       = link_to '', edit_account_path(account), class: 'fas fa-pencil-alt'
