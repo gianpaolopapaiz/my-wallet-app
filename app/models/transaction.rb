@@ -3,5 +3,8 @@ class Transaction < ApplicationRecord
   belongs_to :category
   belongs_to :account
   # Validations
-  validates :name, :date, :value, presence: true
+  validates :date, presence: true
+  validates :name, length: { maximum: 20 }, presence: true
+  validates :description, length: { maximum: 50 }
+  validates :value, numericality: { greater_than: 0 }
 end
