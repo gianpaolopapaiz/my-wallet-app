@@ -6,18 +6,18 @@ class TransactionPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    record.account.user == user
   end
 
   def create?
-    record.user == user
+    record.account.user == user
   end
 
   def update?
-    record.user == user
+    record.account.user == user
   end
 
   def destroy?
-    record.user == user
+    record.account.user == user
   end
 end
