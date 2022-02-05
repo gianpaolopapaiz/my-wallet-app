@@ -6,5 +6,5 @@ class Transaction < ApplicationRecord
   validates :date, presence: true
   validates :name, length: { maximum: 20 }, presence: true
   validates :description, length: { maximum: 50 }
-  validates :value, numericality: { greater_than: 0 }
+  validates :value, numericality: true
 end
