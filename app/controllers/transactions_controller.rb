@@ -3,7 +3,7 @@ class TransactionsController < ApplicationController
   before_action :set_transaction_and_account, only: [:edit, :update, :destroy]
 
   def index
-    @transactions = policy_scope(Transaction).order(date: :desc)
+    @transactions = policy_scope(Transaction).order(:date)
     @account = current_user.accounts.find(params[:account_id])
   end
 
