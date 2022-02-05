@@ -4,13 +4,31 @@
   = link_to 'Add Transaction',  new_account_transaction_path(@account), class: 'btn btn-primary btn-sm'
 
 -if @transactions.present?
-  %table.table.table-hover
+  %br
+  %div
+    Filters:
+    -# Payment Type Filter
+    %select{class: "form-select form-select-sm",
+            "aria-label": ".form-select-sm example"}
+      %option{selected: true} Payment Type
+      %option{value: "expense"} Income
+      %option{value: "income"} Expense
+    -# Category Filter
+    - if current_user.categories.present?
+      %select{class: "form-select form-select-sm",
+              "aria-label": ".form-select-sm example"}
+        %option{selected: true} Category
+        = current_user.categories.each do |category|
+          %option{value: "#{category.name}"}
+            = category.name
+
+  %table.table.table-hover.table-striped.bg-white.shadow
     %thead
       %tr
         %th{ scope: 'col' }Date
         %th{ scope: 'col' }Name
         %th{ scope: 'col' }Description
-        %th{ scope: 'col' }Value
+        %th{ scope: 'col' }Amount
         %th{ scope: 'col' }Balance
         %th{ scope: 'col' }Category
         %th{ scope: 'col' }Action
