@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:edit, :destroy]
+  before_action :set_account, only: [:edit, :update, :destroy]
 
   def index
     @accounts = policy_scope(Account).order(created_at: :desc)
@@ -21,6 +21,14 @@ class AccountsController < ApplicationController
   end
 
   def edit; end
+
+  def update
+    if @account.update(accounts_params)
+      redirect_to accounts_path
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @account.destroy

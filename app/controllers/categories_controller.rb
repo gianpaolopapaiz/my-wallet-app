@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_account, only: [:edit, :destroy]
+  before_action :set_account, only: [:edit, :update, :destroy]
 
   def index
     @categories = policy_scope(Category).order(name: :asc)
@@ -21,6 +21,14 @@ class CategoriesController < ApplicationController
   end
 
   def edit; end
+
+  def update
+    if @category.update(categories_params)
+      redirect_to categories_path
+    else
+      render :edit
+    end
+  end
 
   def destroy
     @category.destroy
