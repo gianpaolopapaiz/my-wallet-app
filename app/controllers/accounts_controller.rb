@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update, :destroy, :ofx_import, :ofx_import_to_account]
 
   def index
     @accounts = policy_scope(Account).order(created_at: :desc)
@@ -39,6 +39,24 @@ class AccountsController < ApplicationController
     redirect_to accounts_path
   end
 
+  def ofx_import; end
+
+  def ofx_import_to_account
+    wallet_account = @account
+    ofx_file = params[:account][:ofx_file]
+    OFX(ofx_file) do
+      account.transactions.each do |ofx_transaction|
+        wallet_transaction = wallet_account.transactions.new(name: ofx_transaction.memo,
+                                                             description: ofx_transaction.check_number,
+                                                             date: ofx_transaction.posted_at,
+                                                             value: ofx_transaction.amount,
+                                                             category_id: nil)
+        wallet_transaction.save!
+      end
+    end
+    redirect_to account_path(@account)
+  end
+
   private
 
   def accounts_params
@@ -46,7 +64,8 @@ class AccountsController < ApplicationController
   end
 
   def set_account
-    @account = current_user.accounts.find(params[:id])
+    id = params[:id] || params[:account_id]
+    @account = current_user.accounts.find(id)
     authorize @account
   end
 end

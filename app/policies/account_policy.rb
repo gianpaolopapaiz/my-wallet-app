@@ -24,4 +24,12 @@ class AccountPolicy < ApplicationPolicy
   def destroy?
     record.user == user
   end
+
+  def ofx_import?
+    record.user == user
+  end
+
+  def ofx_import_to_account?
+    record.user == user
+  end
 end

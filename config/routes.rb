@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :accounts do
     resources :transactions, only: [:index, :new, :create]
+    get '/ofx_import', to: 'accounts#ofx_import'
+    post '/ofx_import', to: 'accounts#ofx_import_to_account'
   end
 
   resources :transactions, only: [:edit, :update, :destroy]

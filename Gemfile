@@ -23,6 +23,7 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'haml-rails'
 gem 'pundit'
+gem 'ofx', '~> 0.3.2'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

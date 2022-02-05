@@ -1,5 +1,6 @@
 .add-button
   %h3 #{@account.name} / Transactions
+  = link_to 'Import From OFX',  account_ofx_import_path(@account), class: 'btn btn-primary btn-sm'
   = link_to 'Add Transaction',  new_account_transaction_path(@account), class: 'btn btn-primary btn-sm'
 
 -if @transactions.present?
