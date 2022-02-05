@@ -6,7 +6,7 @@ class AccountPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    record.user == user
   end
 
   def create?
