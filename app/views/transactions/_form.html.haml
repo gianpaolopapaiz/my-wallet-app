@@ -9,5 +9,5 @@
       = f.input :value
       = f.association :category, collection: current_user.categories.order(:name), prompt: 'Choose a category'
       .form-buttons
-        = link_to 'Cancel', account_transactions_path(@account), class: 'btn btn-outline-primary'
+        = link_to 'Cancel', account_path(@account), class: 'btn btn-outline-primary'
         = f.submit class: 'btn btn-primary'

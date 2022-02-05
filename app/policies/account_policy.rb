@@ -5,6 +5,10 @@ class AccountPolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    record.user == user
+  end
+
   def new?
     record.user == user
   end

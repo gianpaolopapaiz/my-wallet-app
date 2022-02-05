@@ -1,9 +1,11 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   def index
     @accounts = policy_scope(Account).order(created_at: :desc)
   end
+
+  def show; end
 
   def new
     @account = current_user.accounts.new
