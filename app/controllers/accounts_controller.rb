@@ -5,7 +5,9 @@ class AccountsController < ApplicationController
     @accounts = policy_scope(Account).order(created_at: :desc)
   end
 
-  def show; end
+  def show
+    @transactions = @account.transactions.order(:date)
+  end
 
   def new
     @account = current_user.accounts.new
