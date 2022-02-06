@@ -7,6 +7,22 @@ class AccountsController < ApplicationController
 
   def show
     @transactions = @account.transactions.order(:date)
+    # Filters
+    @payment_type = 'All'
+    @category_id = nil
+    if params[:payment_type] == 'Income'
+      @transactions = @transactions.where('value >= 0')
+      @payment_type = 'Income'
+    end
+    if params[:payment_type] == 'Expense'
+      @transactions = @transactions.where('value < 0')
+      @payment_type = 'Expense'
+    end
+    if !params[:category].blank? && params[:category].to_i >= 0
+      @transactions = @transactions.where('category_id = :category_id', category_id: params[:category])
+      @category_id = params[:category]
+    end
+    @transactions_count = @transactions.count
   end
 
   def new
