@@ -47,10 +47,9 @@ class AccountsController < ApplicationController
     OFX(ofx_file) do
       account.transactions.each do |ofx_transaction|
         wallet_transaction = wallet_account.transactions.new(name: ofx_transaction.memo,
-                                                             description: ofx_transaction.check_number,
+                                                             check_number: ofx_transaction.check_number,
                                                              date: ofx_transaction.posted_at,
-                                                             value: ofx_transaction.amount,
-                                                             category_id: nil)
+                                                             value: ofx_transaction.amount)
         wallet_transaction.save!
       end
     end
