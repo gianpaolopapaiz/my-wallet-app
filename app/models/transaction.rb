@@ -9,7 +9,12 @@ class Transaction < ApplicationRecord
   validates :value, numericality: true
 
   def account_balance
-    account.initial_amount + self.account.transactions.where("date <= :date", date: self.date).sum(:value)
+    balance = account.initial_amount
+    account.transactions.order(:date).where("date <= :date", date: date).each do |transaction|
+      balance += transaction.value
+      break if transaction == self
+    end
+    balance
   end
 
   def value_class
