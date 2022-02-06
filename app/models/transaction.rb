@@ -11,4 +11,12 @@ class Transaction < ApplicationRecord
   def account_balance
     account.initial_amount + self.account.transactions.where("date <= :date", date: self.date).sum(:value)
   end
+
+  def value_class
+    value >= 0 ? 'positive-number' : 'negative-number'
+  end
+
+  def account_balance_class
+    account_balance >= 0 ? 'positive-number' : 'negative-number'
+  end
 end

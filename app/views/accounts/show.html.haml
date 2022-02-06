@@ -1,3 +1,8 @@
+:css
+  .filter-select {
+    display: flex;
+  }
+
 .add-button
   %h3 #{@account.name} / Transactions
   = link_to 'Import From OFX',  account_ofx_import_path(@account), class: 'btn btn-primary btn-sm'
@@ -5,35 +10,43 @@
 
 -if @transactions.present?
   %br
-  %div
-    Filters:
-    -# Payment Type Filter
-    %select{class: "form-select form-select-sm",
-            "aria-label": ".form-select-sm example"}
-      %option{selected: true} Payment Type
-      %option{value: "expense"} Income
-      %option{value: "income"} Expense
-    -# Category Filter
-    - if current_user.categories.present?
-      %select{class: "form-select form-select-sm",
-              "aria-label": ".form-select-sm example"}
-        %option{selected: true} Category
-        = current_user.categories.each do |category|
-          %option{value: "#{category.name}"}
-            = category.name
+  .bg-white.main-box-shadow.p-3
+    %div
+      Filters
+      .filter-select
+        %span Date:
+        start:
+        end:
+      .filter-select
+        %span Payment Type:
+        %select{class: "form-select form-select-sm",
+                "aria-label": ".form-select-sm example"}
+          %option{selected: true} All
+          %option{value: "expense"} Income
+          %option{value: "income"} Expense
+      -# Category Filter
+      - if current_user.categories.present?
+        .filter-select
+          %span Category:
+          %select{class: "form-select form-select-sm",
+                  "aria-label": ".form-select-sm example"}
+            %option{selected: true} All
+            = current_user.categories.each do |category|
+              %option{value: "#{category.name}"}
+                = category.name
 
-  %table.table.table-hover.table-striped.bg-white.shadow
-    %thead
-      %tr
-        %th{ scope: 'col' }Date
-        %th{ scope: 'col' }Name
-        %th{ scope: 'col' }Description
-        %th{ scope: 'col' }Amount
-        %th{ scope: 'col' }Balance
-        %th{ scope: 'col' }Category
-        %th{ scope: 'col' }Action
-    %tbody
-      - @transactions.each do |transaction|
-        = render 'transactions/transaction_row', transaction: transaction
+    %table.table.table-hover
+      %thead
+        %tr
+          %th{ scope: 'col' }Date
+          %th{ scope: 'col' }Name
+          %th{ scope: 'col' }Description
+          %th{ scope: 'col' }Amount
+          %th{ scope: 'col' }Balance
+          %th{ scope: 'col' }Category
+          %th{ scope: 'col' }Action
+      %tbody
+        - @transactions.each do |transaction|
+          = render 'transactions/transaction_row', transaction: transaction
 - else
   %p (There are no transactions yet.)

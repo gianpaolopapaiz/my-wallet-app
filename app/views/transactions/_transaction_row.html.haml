@@ -2,9 +2,9 @@
   %td= transaction.date
   %td= transaction.name
   %td= transaction.description
-  %td{class: "#{transaction.value.positive? ? 'positive-number' : 'negative-number'}"}
+  %td{class: "#{transaction.value_class}"}
     = number_to_currency(transaction.value)
-  %td{class: "#{transaction.value.positive? ? 'positive-number' : 'negative-number'}"}
+  %td
     = number_to_currency(transaction.account_balance)
   %td= transaction.category&.name || 'None'
   %td
