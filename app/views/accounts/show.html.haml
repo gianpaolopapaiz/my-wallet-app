@@ -26,10 +26,10 @@
           %div.d-flex.justify-content-start.gap-3
             %div
               = label_tag 'Start:', nil, class: 'mt-2'
-              = date_field_tag 'start_date', @start_date, class: ''
+              = date_field_tag 'start_date', @start_date, class: 'form-date form-select-sm'
             %div
               = label_tag 'End:', nil, class: 'mt-2'
-              = date_field_tag 'end_date', @end_date, class: ''
+              = date_field_tag 'end_date', @end_date, class: 'form-date form-select-sm'
         %div
           = label_tag 'Payment Type:', nil, class: 'mt-3'
           = select_tag 'payment_type',
