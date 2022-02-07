@@ -1,27 +1,46 @@
-.add-button
-  %h3 Accounts / #{@account.name}
-  = link_to 'Import From OFX',  account_ofx_import_path(@account), class: 'btn btn-primary btn-sm'
-  = link_to 'Add Transaction',  new_account_transaction_path(@account), class: 'btn btn-primary btn-sm'
+%h3 Accounts / #{@account.name}
 
 -if @account.transactions.present?
   %br
   .bg-white.main-box-shadow.default-border-radius.p-3
-    %h4= "Transactions(#{@transactions_count})"
+    .add-button
+      %h4= "Transactions(#{@transactions_count})"
+      .dropdown
+        %button#dropdownMenuButton1.btn.btn-primary.btn-sm.dropdown-toggle{"aria-expanded": "false",
+                                                                           "data-bs-toggle": "dropdown",
+                                                                           type: "button"}
+          Add Transaction
+        %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuButton1"}
+          %li
+            = link_to 'Manual Transaction', new_account_transaction_path(@account), class: 'dropdown-item'
+          %li
+            = link_to 'Import From OFX', account_ofx_import_path(@account), class: 'dropdown-item'
 
     %hr
 
     %div
       %h5.text-bold Filters
       = form_tag account_path(@account), method: :get do
-        = label_tag 'Payment Type:'
-        = select_tag 'payment_type',
-                     options_for_select([ "All", "Income", "Expense"], @payment_type),
-                     class: 'form-select form-select-sm'
-        = label_tag 'Category:', nil, class: 'mt-3'
-        = select_tag 'category',
-                     options_from_collection_for_select(current_user.categories.order(:name), "id", "name", @category_id),
-                     prompt: 'All',
-                     class: 'form-select form-select-sm'
+        %div
+          = label_tag 'Date Range:', nil, class: 'mt-2'
+          %div.d-flex.justify-content-start.gap-3
+            %div
+              = label_tag 'Start:', nil, class: 'mt-2'
+              = date_field_tag 'start_date', @start_date, class: ''
+            %div
+              = label_tag 'End:', nil, class: 'mt-2'
+              = date_field_tag 'end_date', @end_date, class: ''
+        %div
+          = label_tag 'Payment Type:', nil, class: 'mt-3'
+          = select_tag 'payment_type',
+                       options_for_select([ "All", "Income", "Expense"], @payment_type),
+                       class: 'form-select form-select-sm'
+        %div
+          = label_tag 'Category:', nil, class: 'mt-3'
+          = select_tag 'category',
+                       options_from_collection_for_select(current_user.categories.order(:name), "id", "name", @category_id),
+                       prompt: 'All',
+                       class: 'form-select form-select-sm'
         = submit_tag 'Apply', class: 'btn btn-primary btn-sm mt-3'
 
     %hr
