@@ -2,6 +2,7 @@ class Transaction < ApplicationRecord
   # Associations
   belongs_to :category, optional: true
   belongs_to :account
+  has_one :user, through: :account
   # Validations
   validates :date, presence: true
   validates :name, length: { maximum: 30 }, presence: true

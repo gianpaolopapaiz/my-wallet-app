@@ -2,6 +2,7 @@ class User < ApplicationRecord
   # Associations
   has_many :categories
   has_many :accounts
+  has_many :transactions, through: :accounts
   # Validations
   validates :first_name, :last_name, presence: true
 
