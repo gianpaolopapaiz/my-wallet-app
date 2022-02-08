@@ -1,7 +1,7 @@
 class TransactionPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.account.where(user: user)
+      scope.all
     end
   end
 
