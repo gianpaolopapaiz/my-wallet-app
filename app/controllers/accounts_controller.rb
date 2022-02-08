@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
   end
 
   def show
-    @transactions = @account.transactions.order(:date)
+    @transactions = @account.transactions.order(date: :desc)
     # Filters
     # Date
     @start_date = Date.today.at_beginning_of_year
