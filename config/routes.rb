@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     post '/ofx_import', to: 'accounts#ofx_import_to_account'
   end
 
+  resources :statistics, only: [:index]
+
   resources :transactions, only: [:edit, :update, :destroy]
 
   resources :categories
