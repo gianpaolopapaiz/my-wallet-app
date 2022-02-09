@@ -43,4 +43,5 @@
 
   %hr
   - @transactions.each do |category|
-    %p= category.value
+    %p= "#{category.first}: #{number_to_currency(category.last)}"
+

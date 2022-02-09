@@ -27,6 +27,9 @@ class StatisticsController < ApplicationController
       @transactions = @transactions.where('value < 0')
       @payment_type = 'Expense'
     end
-    @transactions.group(:category_id)
+    @transactions = @transactions.joins(:category).
+                                  group('categories.name').
+                                  order('categories.name').
+                                  sum('transactions.value')
   end
 end
