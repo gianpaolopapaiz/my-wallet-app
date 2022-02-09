@@ -27,8 +27,8 @@
                                    "data-bs-toggle": "collapse",
                                    type: "button"}
             Filters
-        #collapseOne.accordion-collapse.collapse.show{"aria-labelledby": "headingOne",
-                                                      "data-bs-parent": "#filterAccordion"}
+        #collapseOne.accordion-collapse.collapse{"aria-labelledby": "headingOne",
+                                                 "data-bs-parent": "#filterAccordion"}
           .accordion-body
             = form_tag account_path(@account), method: :get do
               %div
