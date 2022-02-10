@@ -24,6 +24,11 @@ gem 'redis', '~> 4.0'
 gem 'haml-rails'
 gem 'pundit'
 gem 'ofx', '~> 0.3.2'
+
+# Graph
+gem 'chartkick'
+gem "groupdate"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
