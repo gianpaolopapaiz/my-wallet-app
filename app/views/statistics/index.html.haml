@@ -1,11 +1,15 @@
+:css
+  .category_statistics_wrapper {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    column-gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
 %h3 Statistics
-
 .bg-white.main-box-shadow.default-border-radius.p-3
-  .add-button
-    %h4= "Transactions by category"
-
-  %hr
-
   #filterAccordion.accordion
     .accordion-item
       %h5#headingOne.accordion-header
@@ -14,7 +18,7 @@
                                    "data-bs-target": "#collapseOne",
                                    "data-bs-toggle": "collapse",
                                    type: "button"}
-          Filters
+          Global Filters
       #collapseOne.accordion-collapse.collapse{"aria-labelledby": "headingOne",
                                                "data-bs-parent": "#filterAccordion"}
         .accordion-body
@@ -40,8 +44,51 @@
                              prompt: 'All',
                              class: 'form-select form-select-sm'
             = submit_tag 'Apply', class: 'btn btn-primary btn-sm mt-3'
-
   %hr
-  - @transactions.each do |category|
-    %p= "#{category.first}: #{number_to_currency(category.last)}"
+  %h4 Transactions by category
+  .category_statistics_wrapper
+    %div
+      = pie_chart @transactions_by_category, legend: "left",
+                                             donut: true,
+                                             prefix: "$",
+                                             thousands: ",",
+                                             decimal: ".",
+                                             round: 2,
+                                             loading: "Loading...",
+                                             colors: %w( #326e6e #77afb6 #c6d9e8 #c1c7df #7c99bb ),
+                                             dataset: {borderWidth: 5}
+    %div
+      %table.table.table-hover
+        %thead
+          %tr
+            %th{ scope: 'col' }Category
+            %th{ scope: 'col' }Amount
+            %th{ scope: 'col' }% of Total
+        %tbody
+          - @transactions_by_category.each do |data|
+            %tr
+              %td=data.first
+              %td=number_to_currency(data.last)
+              %td=number_to_percentage((data.last / @transactions_total) * 100,  precision: 2)
+  %hr
+  %h4 Transactions by day
+  %br
+  = line_chart @transactions_by_week, xmin: @start_date,
+                                     xmax: @end_date,
+                                     prefix: "$",
+                                     thousands: ",",
+                                     decimal: ".",
+                                     round: 2,
+                                     loading: "Loading...",
+                                     colors: %w( #326e6e #77afb6 #c6d9e8 #c1c7df #7c99bb )
+  %hr
+  %h4 Transactions by month
+  = column_chart @transactions_by_month,
+                                     prefix: "$",
+                                     thousands: ",",
+                                     decimal: ".",
+                                     round: 2,
+                                     loading: "Loading...",
+                                     colors: %w( #326e6e #77afb6 #c6d9e8 #c1c7df #7c99bb )
+
 

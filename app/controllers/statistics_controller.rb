@@ -11,6 +11,7 @@ class StatisticsController < ApplicationController
     # Date
     @start_date = Date.today.at_beginning_of_year
     @end_date = Date.today.at_end_of_month
+    @end_of_year = Date.today.at_end_of_year
     if !params[:start_date].blank? && !params[:end_date].blank?
       @start_date = params[:start_date]
       @end_date = params[:end_date]
@@ -27,9 +28,12 @@ class StatisticsController < ApplicationController
       @transactions = @transactions.where('value < 0')
       @payment_type = 'Expense'
     end
-    @transactions = @transactions.joins(:category).
-                                  group('categories.name').
-                                  order('categories.name').
-                                  sum('transactions.value')
+    @transactions_total = @transactions.sum(:value)
+    @transactions_by_category = @transactions.joins(:category).
+                                               group('categories.name').
+                                               order('categories.name').
+                                               sum('transactions.value')
+    @transactions_by_week = @transactions.group_by_week(:date).sum(:value)
+    @transactions_by_month = @transactions.group_by_month(:date,  format: "%b").sum(:value)
   end
 end
