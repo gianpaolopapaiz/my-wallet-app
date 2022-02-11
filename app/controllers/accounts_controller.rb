@@ -20,11 +20,11 @@ class AccountsController < ApplicationController
     # Payment Type
     @payment_type = 'All'
     if params[:payment_type] == 'Income'
-      @transactions = @transactions.where('value >= 0')
+      @transactions = @transactions.income
       @payment_type = 'Income'
     end
     if params[:payment_type] == 'Expense'
-      @transactions = @transactions.where('value < 0')
+      @transactions = @transactions.expense
       @payment_type = 'Expense'
     end
     # Category
