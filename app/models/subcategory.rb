@@ -1,9 +1,7 @@
-class Category < ApplicationRecord
+class Subcategory < ApplicationRecord
   # Associations
-  belongs_to :user
-  has_many :transactions
-  has_many :subcategories
-
+  belongs_to :category
+  has_one :user, through: :category
   # Validations
   validates :name, length: { maximum: 20 }, presence: true
   validates :description, length: { maximum: 50 }
