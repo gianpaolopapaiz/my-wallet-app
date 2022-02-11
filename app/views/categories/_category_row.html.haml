@@ -1,12 +1,19 @@
 %tr
+  %th
+    - if category.subcategories.exists?
+      %a{"aria-controls" => "collapse#{category.id}", "aria-expanded" => "true", "data-bs-target" => "#collapse#{category.id}", "data-bs-toggle" => "collapse", :type => "button"}
+        %i.fa.fa-plus{style: 'color:green'}
+
   %th{ scope: 'row' }
     = category.name
   %td
     = category.description
   %td
     .action-column
-      = link_to '', edit_category_path(category), class: 'fas fa-pencil-alt'
+      = link_to '', new_category_subcategory_path(category), class: 'far fa-folder-open', title: 'Add Subcategory'
+      = link_to '', edit_category_path(category), class: 'fas fa-pencil-alt', title: 'Edit Category'
       = link_to '', category_path(category),
                             method: :delete,
                             data: { confirm: 'Are you sure that you want to delete this category?' },
-                            class: 'fas fa-trash-alt'
+                            class: 'fas fa-trash-alt',
+                            title: 'Delete Category'

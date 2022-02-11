@@ -6,11 +6,31 @@
   %table.table.table-hover
     %thead
       %tr
+        %th{ scope: 'col', style: 'width: 30px' }
         %th{ scope: 'col' }Category
         %th{ scope: 'col' }Description
         %th{ scope: 'col' }Action
     %tbody
+      #accordionCategory.accordion
       - @categories.each do |category|
-        = render 'category_row', category: category
+        .accordion-item
+          = render 'category_row', category: category
+          - if category.subcategories.exists?
+            %tr
+              %td.accordion-body.collapse{id: "collapse#{category.id}", "aria-labelledby" => "heading#{category.id}", "data-bs-parent" => "#accordionCategory", colspan: "4"}
+                %table.table
+                  %thead
+                    %th Subcategory
+                    %th Name
+                    %th Description
+                    %tbody
+                  %tr
+                    %td GDL
+                    %td 2,000.00
+
+
 - else
   %p (There are no categories yet.)
+
+
+
