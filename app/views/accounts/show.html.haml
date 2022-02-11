@@ -1,4 +1,16 @@
-%h3 Accounts / #{@account.name}
+.add-button
+  %h3 Accounts / #{@account.name}
+  - unless @account.transactions.present?
+    .dropdown
+      %button#dropdownMenuButton1.btn.btn-primary.btn-sm.dropdown-toggle{"aria-expanded": "false",
+                                                                         "data-bs-toggle": "dropdown",
+                                                                         type: "button"}
+        Add Transaction
+      %ul.dropdown-menu{"aria-labelledby":  "dropdownMenuButton1"}
+        %li
+          = link_to 'Manual Transaction', new_account_transaction_path(@account), class: 'dropdown-item'
+        %li
+          = link_to 'Import From OFX', account_ofx_import_path(@account), class: 'dropdown-item'
 
 -if @account.transactions.present?
   %br
