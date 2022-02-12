@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_account, only: [:edit, :update, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy]
 
   def index
     @categories = policy_scope(Category).order(name: :asc)
@@ -41,7 +41,7 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:name, :description)
   end
 
-  def set_account
+  def set_category
     @category = current_user.categories.find(params[:id])
     authorize @category
   end
