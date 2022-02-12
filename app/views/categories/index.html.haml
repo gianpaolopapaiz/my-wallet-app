@@ -17,17 +17,18 @@
           = render 'category_row', category: category
           - if category.subcategories.exists?
             %tr
-              %td.accordion-body.collapse{id: "collapse#{category.id}", "aria-labelledby" => "heading#{category.id}", "data-bs-parent" => "#accordionCategory", colspan: "4"}
-                %table.table
+              %td.accordion-body.collapse{id: "collapse#{category.id}",
+                                          "aria-labelledby": "heading#{category.id}",
+                                          "data-bs-parent": "#accordionCategory",
+                                          colspan: "3"}
+                %table.table.mx-5
                   %thead
                     %th Subcategory
-                    %th Name
                     %th Description
-                    %tbody
-                  %tr
-                    %td GDL
-                    %td 2,000.00
-
+                    %th Action
+                  %tbody
+                    - category.subcategories.each do |subcategory|
+                      = render 'subcategories/subcategory_row', subcategory: subcategory
 
 - else
   %p (There are no categories yet.)

@@ -1,0 +1,11 @@
+%tr
+  %td= subcategory.name
+  %td= subcategory.description
+  %td
+    .action-column
+      = link_to '', edit_subcategory_path(subcategory), class: 'fas fa-pencil-alt', title: 'Edit Category'
+      = link_to '', subcategory_path(subcategory),
+                                                  method: :delete,
+                                                  data: { confirm: 'Are you sure that you want to delete this subcategory?' },
+                                                  class: 'fas fa-trash-alt',
+                                                  title: 'Delete Category'

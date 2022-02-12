@@ -9,13 +9,11 @@ Rails.application.routes.draw do
     post '/ofx_import', to: 'accounts#ofx_import_to_account'
   end
 
-  resources :statistics, only: [:index]
-
-  resources :transactions, only: [:edit, :update, :destroy]
-
   resources :categories do
-    resources :subcategories
+    resources :subcategories, only: [:new, :create]
   end
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :statistics, only: [:index]
+  resources :transactions, only: [:edit, :update, :destroy]
+  resources :subcategories, only: [:edit, :update, :destroy]
 end
