@@ -7,7 +7,21 @@
       = f.input :name
       = f.input :description
       = f.input :value
-      = f.association :category, collection: current_user.categories.order(:name), prompt: 'Choose a category'
+      = f.association :category,
+                      collection: current_user.categories.order(:name),
+                      prompt: 'Choose a category'
+      = f.association :subcategory,
+                      collection: current_user.subcategories.order(:name),
+                      prompt: 'Choose a subcategory',
+                      id: 'subategory-field'
       .form-buttons
         = link_to 'Cancel', account_path(@account), class: 'btn btn-outline-primary'
         = f.submit class: 'btn btn-primary'
+
+-#:javascript
+-#  let categorySelector = document.getElementById('transaction_category_id');
+-#
+-#  categorySelector.addEventListener('change', (e) => {
+-#    let selectedCategory = e.currentTarget.selectedIndex;
+-#
+-#  });

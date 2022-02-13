@@ -1,6 +1,7 @@
 class Transaction < ApplicationRecord
   # Associations
   belongs_to :category, optional: true
+  belongs_to :subcategory, optional: true
   belongs_to :account
   has_one :user, through: :account
   # Validations
