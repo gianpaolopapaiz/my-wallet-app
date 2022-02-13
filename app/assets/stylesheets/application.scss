@@ -41,6 +41,7 @@ body {
   display: flex;
   column-gap: 20px;
   flex-wrap: nowrap;
+  justify-content: flex-end;
 }
 
 .positive-number {
@@ -60,4 +61,8 @@ body {
     outline: 0;
     border-color: #80c080
   }
+}
+
+.text-right {
+  text-align: right;
 }

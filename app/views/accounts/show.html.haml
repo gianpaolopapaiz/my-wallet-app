@@ -1,5 +1,8 @@
 .add-button
-  %h3 Accounts / #{@account.name}
+  %h3
+    = link_to 'Accounts', accounts_path(@account), class: 'text-decoration-none',
+                                                   title: 'View accounts overview'
+    %span= "/ #{@account.name}"
   - unless @account.transactions.present?
     .dropdown
       %button#dropdownMenuButton1.btn.btn-primary.btn-sm.dropdown-toggle{"aria-expanded": "false",
@@ -16,7 +19,7 @@
   %br
   .bg-white.main-box-shadow.default-border-radius.p-3
     .add-button
-      %h4= "Transactions(#{@transactions_count})"
+      %h4= "Transactions (#{@transactions_count})"
       .dropdown
         %button#dropdownMenuButton1.btn.btn-primary.btn-sm.dropdown-toggle{"aria-expanded": "false",
                                                                            "data-bs-toggle": "dropdown",
@@ -73,10 +76,10 @@
           %th{ scope: 'col' }Date
           %th{ scope: 'col' }Name
           %th{ scope: 'col' }Description
-          %th{ scope: 'col' }Amount
-          %th{ scope: 'col' }Balance
           %th{ scope: 'col' }Category
-          %th{ scope: 'col' }Action
+          %th.text-right{ scope: 'col' }Amount
+          %th.text-right{ scope: 'col' }Balance
+          %th.text-right{ scope: 'col' }Action
       %tbody
         - if @transactions.present?
           - @transactions.each do |transaction|

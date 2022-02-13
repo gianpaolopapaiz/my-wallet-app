@@ -1,14 +1,15 @@
 %tr
-  %th{ scope: 'row' }= link_to account.name, account_path(account)
+  %th{ scope: 'row' }= link_to account.name, account_path(account), title: 'View account transactions',
+                                                                    class: 'text-decoration-none'
   %td= account.description
-  %td{class: "#{account.initial_amount >= 0 ? 'positive-number' : 'negative-number'}"}
+  %td.text-right{class: "#{account.initial_amount >= 0 ? 'positive-number' : 'negative-number'}"}
     = number_to_currency(account.initial_amount)
-  %td{class: "#{account.balance >= 0 ? 'positive-number' : 'negative-number'}"}
+  %td.text-right{class: "#{account.balance >= 0 ? 'positive-number' : 'negative-number'}"}
     = number_to_currency(account.balance)
   %td
     .action-column
-      = link_to '', edit_account_path(account), class: 'fas fa-pencil-alt'
-      = link_to '', account_path(account),
-                            method: :delete,
-                            data: { confirm: 'Are you sure that you want to delete this account with all of its records?' },
-                            class: 'fas fa-trash-alt'
+      = link_to '', edit_account_path(account), class: 'fas fa-pencil-alt', title: 'Edit account'
+      = link_to '', account_path(account), method: :delete,
+                                           data: { confirm: 'Are you sure that you want to delete this account with all of its records?' },
+                                           class: 'fas fa-trash-alt',
+                                           title: 'Delete account'

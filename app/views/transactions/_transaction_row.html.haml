@@ -2,15 +2,17 @@
   %td= transaction.date
   %td= transaction.name
   %td= transaction.description
-  %td{class: "#{transaction.value_class}"}
-    = number_to_currency(transaction.value)
-  %td
-    = number_to_currency(transaction.account_balance)
   %td= transaction.category&.name || 'None'
+  %td.text-right{class: "#{transaction.value_class}"}
+    = number_to_currency(transaction.value)
+  %td.text-right
+    = number_to_currency(transaction.account_balance)
   %td
     .action-column
-      = link_to '', edit_transaction_path(transaction), class: 'fas fa-pencil-alt'
+      = link_to '', edit_transaction_path(transaction), class: 'fas fa-pencil-alt',
+                                                        title: 'Edit transaction'
       = link_to '', transaction_path(transaction),
                             method: :delete,
                             data: { confirm: 'Are you sure that you want to delete this transaction?' },
-                            class: 'fas fa-trash-alt'
+                            class: 'fas fa-trash-alt',
+                            title: 'Delete transaction'
