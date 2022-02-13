@@ -3,32 +3,33 @@
   = link_to 'Add category', new_category_path, class: 'btn btn-primary btn-sm'
 
 -if @categories.present?
-  %table.table.table-hover
-    %thead
-      %tr
-        %th{ scope: 'col', style: 'width: 30px' }
-        %th{ scope: 'col' }Category
-        %th{ scope: 'col' }Description
-        %th{ scope: 'col' }Action
-    %tbody
-      #accordionCategory.accordion
-      - @categories.each do |category|
-        .accordion-item
-          = render 'category_row', category: category
-          - if category.subcategories.exists?
-            %tr
-              %td.accordion-body.collapse{id: "collapse#{category.id}",
-                                          "aria-labelledby": "heading#{category.id}",
-                                          "data-bs-parent": "#accordionCategory",
-                                          colspan: "3"}
-                %table.table.mx-5
-                  %thead
-                    %th Subcategory
-                    %th Description
-                    %th Action
-                  %tbody
-                    - category.subcategories.each do |subcategory|
-                      = render 'subcategories/subcategory_row', subcategory: subcategory
+  .bg-white.main-box-shadow.default-border-radius.p-3
+    %table.table
+      %thead
+        %tr
+          %th{ scope: 'col', style: 'width: 30px' }
+          %th{ scope: 'col' }Category
+          %th{ scope: 'col' }Description
+          %th.text-right{ scope: 'col' }Action
+      %tbody
+        #accordionCategory.accordion
+        - @categories.each do |category|
+          .accordion-item
+            = render 'category_row', category: category
+            - if category.subcategories.exists?
+              %tr
+                %td.accordion-body.collapse.px-4{id: "collapse#{category.id}",
+                                                 "aria-labelledby": "heading#{category.id}",
+                                                 "data-bs-parent": "#accordionCategory",
+                                                 colspan: "4"}
+                  %table.table
+                    %thead
+                      %th Subcategory
+                      %th Description
+                      %th Action
+                    %tbody
+                      - category.subcategories.each do |subcategory|
+                        = render 'subcategories/subcategory_row', subcategory: subcategory
 
 - else
   %p (There are no categories yet.)
