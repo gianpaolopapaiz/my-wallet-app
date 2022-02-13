@@ -10,4 +10,10 @@ class Account < ApplicationRecord
   def balance
     initial_amount + transactions.sum(:value)
   end
+
+  def self.collection_balance
+    sum = 0.00
+    all.each { |account| sum += (account.balance || 0.00)}
+    sum
+  end
 end

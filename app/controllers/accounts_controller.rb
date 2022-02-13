@@ -2,7 +2,8 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy, :ofx_import, :ofx_import_to_account]
 
   def index
-    @accounts = policy_scope(Account).order(created_at: :desc)
+    @accounts = policy_scope(Account).order(:name)
+    @accounts_total_balance = @accounts.collection_balance
   end
 
   def show
