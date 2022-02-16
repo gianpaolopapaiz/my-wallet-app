@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories do
-    resources :subcategories, only: [:new, :create]
+    resources :subcategories, only: [:index, :new, :create]
   end
 
   resources :statistics, only: [:index]

@@ -20,4 +20,9 @@ class CategoryPolicy < ApplicationPolicy
   def destroy?
     record.user == user
   end
+
+  # Subcategory's index
+  def index?
+    record.user == user
+  end
 end

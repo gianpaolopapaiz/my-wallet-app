@@ -1,6 +1,14 @@
 class SubcategoriesController < ApplicationController
-  before_action :set_category, only: [:new, :create]
+  before_action :set_category, only: [:index, :new, :create]
   before_action :set_subcategory, only: [:edit, :update, :destroy]
+
+  def index
+    @subcategories = policy_scope(Subcategory).where(category: @category).order(name: :desc)
+    respond_to do |format|
+      format.html
+      format.json { render json: @subcategories }
+    end
+  end
 
   def new
     @subcategory = @category.subcategories.new
