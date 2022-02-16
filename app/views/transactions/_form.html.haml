@@ -1,3 +1,8 @@
+:css
+  .hide-container{
+    display: none;
+  }
+
 .form-wrapper
   .main-form
     %h4 Transaction
@@ -10,18 +15,41 @@
       = f.association :category,
                       collection: current_user.categories.order(:name),
                       prompt: 'Choose a category'
-      = f.association :subcategory,
-                      collection: current_user.subcategories.order(:name),
-                      prompt: 'Choose a subcategory',
-                      id: 'subategory-field'
+      -# = f.association :subcategory,
+      -#                 collection: current_user.subcategories.order(:name),
+      -#                 prompt: 'Choose a subcategory'
+      #subcategory-field.b-3.select.optional.transaction_subcategory.hide-container
+        %label.form-label.select.optional{for: 'transaction_subcategory_id'} Subcategory
+        %select.form-select.select.optional{name: 'transaction[subcategory_id]', id: 'transaction_subcategory_id'}
+          %option Choose a subcategory
+
       .form-buttons
         = link_to 'Cancel', account_path(@account), class: 'btn btn-outline-primary'
         = f.submit class: 'btn btn-primary'
 
--#:javascript
--#  let categorySelector = document.getElementById('transaction_category_id');
--#
--#  categorySelector.addEventListener('change', (e) => {
--#    let selectedCategory = e.currentTarget.selectedIndex;
--#
--#  });
+:javascript
+  let categorySelector = document.getElementById('transaction_category_id');
+  let subcategorySelector = document.getElementById('subcategory-field');
+  let subcategoryOptionsSelector = document.getElementById('transaction_subcategory_id');
+  let subcategories = {}
+
+  const getSubcategories = (e) => {
+    let selectedCategory = e.currentTarget.selectedIndex;
+    fetch('/categories/' + selectedCategory + '/subcategories.json').then((response) => {
+      return response.json();
+    }).then((data) => {
+      console.log(data);
+      subcategories = data;
+      if (subcategories.length > 0) {
+        subcategorySelector.classList.remove('hide-container');
+        subcategories.forEach((subcategory) => {
+          let htmlString = `<option value='${subcategory.id}'>${subcategory.name}</option>`
+          subcategoryOptionsSelector.insertAdjacentHTML('beforeend', htmlString);
+        })
+      } else {
+        subcategorySelector.classList.add('hide-container');
+      }
+    })
+  }
+
+  categorySelector.addEventListener('change', getSubcategories);
