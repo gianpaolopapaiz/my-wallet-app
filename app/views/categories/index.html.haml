@@ -14,22 +14,21 @@
       %tbody
         #accordionCategory.accordion
         - @categories.each do |category|
-          .accordion-item
-            = render 'category_row', category: category
-            - if category.subcategories.exists?
-              %tr
-                %td.accordion-body.collapse.px-4{id: "collapse#{category.id}",
-                                                 "aria-labelledby": "heading#{category.id}",
-                                                 "data-bs-parent": "#accordionCategory",
-                                                 colspan: "4"}
-                  %table.table
-                    %thead
-                      %th Subcategory
-                      %th Description
-                      %th Action
-                    %tbody
-                      - category.subcategories.each do |subcategory|
-                        = render 'subcategories/subcategory_row', subcategory: subcategory
+          = render 'category_row', category: category
+          - if category.subcategories.exists?
+            %tr
+              %td.accordion-body.collapse.px-4{id: "collapse#{category.id}",
+                                               "aria-labelledby": "heading#{category.id}",
+                                               "data-bs-parent": "#accordionCategory",
+                                               colspan: "4"}
+                %table.table
+                  %thead
+                    %th Subcategory
+                    %th Description
+                    %th Action
+                  %tbody
+                    - category.subcategories.each do |subcategory|
+                      = render 'subcategories/subcategory_row', subcategory: subcategory
 
 - else
   %p (There are no categories yet.)
