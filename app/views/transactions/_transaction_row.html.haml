@@ -1,5 +1,5 @@
 %tr
-  %td= transaction.date
+  %td= nice_date(transaction.date)
   %td= transaction.name
   %td= transaction.description
   %td= transaction.category&.name || 'None'
