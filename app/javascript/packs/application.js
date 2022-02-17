@@ -21,9 +21,15 @@ import "bootstrap"
 import "chartkick/chart.js"
 
 import { handleSubcategoryOnTransactionForm } from "../helpers/handleSubcategoryOnTransactionForm";
+import { handleAccordionButton} from "../helpers/handleAccordionButton";
 
-document.addEventListener('turbolinks:load', () =>{
+document.addEventListener('turbolinks:load', () => {
+  // Add dynamic subcategory to transaction form
   if (document.getElementById('transaction_category_id')){
     handleSubcategoryOnTransactionForm();
+  }
+  // Switch accordion icon
+  if (document.querySelector('.wallet-accordion-button')){
+    handleAccordionButton();
   }
 });
