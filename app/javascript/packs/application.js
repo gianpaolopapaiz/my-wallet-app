@@ -19,3 +19,11 @@ require("channels")
 import "controllers"
 import "bootstrap"
 import "chartkick/chart.js"
+
+import { handleSubcategoryOnTransactionForm } from "../helpers/handleSubcategoryOnTransactionForm";
+
+document.addEventListener('turbolinks:load', () =>{
+  if (document.getElementById('transaction_category_id')){
+    handleSubcategoryOnTransactionForm();
+  }
+});
