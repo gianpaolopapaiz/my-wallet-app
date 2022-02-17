@@ -2,16 +2,15 @@ const handleSubcategoryOnTransactionForm = () => {
   let categorySelector = document.getElementById('transaction_category_id');
   let subcategorySelector = document.getElementById('subcategory-field');
   let subcategoryOptionsSelector = document.getElementById('transaction_subcategory_id');
-  let subcategories = {}
-
-  const getSubcategories = (e) => {
-    let selectedCategory = e.currentTarget.selectedIndex;
-    let isNoCategorySelection = e.currentTarget.value == '';
+  let currentTransaction = subcategorySelector.dataset.transaction;
+  const getSubcategories = () => {
+    let selectedCategory = categorySelector.value;
+    let isNoCategorySelection = categorySelector.value === '';
     if (!isNoCategorySelection) {
       fetch('/categories/' + selectedCategory + '/subcategories.json').then((response) => {
         return response.json();
       }).then((data) => {
-        subcategories = data;
+        let subcategories = data;
         if (subcategories.length > 0) {
           subcategorySelector.classList.remove('hide-container');
           subcategoryOptionsSelector.innerHTML = '';
@@ -28,7 +27,17 @@ const handleSubcategoryOnTransactionForm = () => {
       subcategorySelector.classList.add('hide-container');
     }
   }
-
+  const getCurrentTransaction = () => {
+    fetch('/transactions/' + currentTransaction + '.json').then((response) => {
+      return response.json();
+    }).then((data) => {
+      let transaction = data;
+      if (transaction.subcategory_id){
+        subcategoryOptionsSelector.value = transaction.subcategory_id;}
+    });
+  };
+  getSubcategories();
+  getCurrentTransaction();
   categorySelector.addEventListener('change', getSubcategories);
 }
 

@@ -15,7 +15,7 @@
       = f.association :category,
                       collection: current_user.categories.order(:name),
                       prompt: 'Choose a category'
-      #subcategory-field.b-3.select.optional.transaction_subcategory.hide-container
+      #subcategory-field.b-3.select.optional.transaction_subcategory.hide-container{'data-transaction': @transaction.id}
         %label.form-label.select.optional{for: 'transaction_subcategory_id'} Subcategory
         %select.form-select.select.optional{name: 'transaction[subcategory_id]', id: 'transaction_subcategory_id'}
 
