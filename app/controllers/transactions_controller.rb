@@ -1,11 +1,18 @@
 class TransactionsController < ApplicationController
   before_action :set_account, only: [:new, :create]
-  before_action :set_transaction_and_account, only: [:edit, :update, :destroy]
+  before_action :set_transaction_and_account, only: [:show, :edit, :update, :destroy]
 
   def new
     @transaction = @account.transactions.new
     authorize @transaction
     @simple_form_models = [@account, @transaction]
+  end
+
+  def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @transaction }
+    end
   end
 
   def create

@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :statistics, only: [:index]
-  resources :transactions, only: [:edit, :update, :destroy]
+  resources :transactions, only: [:show, :edit, :update, :destroy]
   resources :subcategories, only: [:edit, :update, :destroy]
 end
