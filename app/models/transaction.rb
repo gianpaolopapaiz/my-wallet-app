@@ -10,7 +10,7 @@ class Transaction < ApplicationRecord
   validates :description, length: { maximum: 50 }
   validates :value, numericality: true
   # Scopes
-  scope :income , -> { where(`value >= 0`) }
+  scope :income , -> { where('value >= 0') }
   scope :expense, -> { where('value < 0') }
 
   def account_balance
