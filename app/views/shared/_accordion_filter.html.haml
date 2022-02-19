@@ -14,33 +14,34 @@
           - if filter_date_range
             %div
               = label_tag 'Date Range:', nil, class: 'mt-2'
-              %div.d-flex.justify-content-start.gap-3
+              %div.d-flex.justify-content-start.gap-3.flex-wrap
                 %div
                   = label_tag 'Start:', nil, class: 'mt-2'
                   = date_field_tag 'start_date', @start_date, class: 'form-date form-select-sm'
                 %div
                   = label_tag 'End:', nil, class: 'mt-2'
                   = date_field_tag 'end_date', @end_date, class: 'form-date form-select-sm'
-          - if filter_account
-            %div
-              = label_tag 'Account:', nil, class: 'mt-3'
-              = select_tag 'account',
-                             options_from_collection_for_select(current_user.accounts.order(:name), "id", "name", @account_id),
-                             prompt: 'All',
-                             class: 'form-select form-select-sm'
-          - if filter_payment_type
-            %div
-              = label_tag 'Payment Type:', nil, class: 'mt-3'
-              = select_tag 'payment_type',
-                               options_for_select([ "All", "Income", "Expense"], @payment_type),
-                               class: 'form-select form-select-sm'
-          - if filter_category
-            %div
-              = label_tag 'Category:', nil, class: 'mt-3'
-              = select_tag 'category',
-                               options_from_collection_for_select(current_user.categories.order(:name), "id", "name", @category_id),
+          %div.d-flex.justify-content-start.gap-3.flex-wrap
+            - if filter_account
+              %div{style:'min-width: 250px'}
+                = label_tag 'Account:', nil, class: 'mt-3'
+                = select_tag 'account',
+                               options_from_collection_for_select(current_user.accounts.order(:name), "id", "name", @account_id),
                                prompt: 'All',
                                class: 'form-select form-select-sm'
-          = submit_tag 'Apply', class: 'btn btn-primary btn-sm mt-3'
-          = link_to 'Reset', form_tag_path, class: 'btn btn-outline-primary btn-sm mt-3'
+            - if filter_payment_type
+              %div{style:'min-width: 250px'}
+                = label_tag 'Payment Type:', nil, class: 'mt-3'
+                = select_tag 'payment_type',
+                                 options_for_select([ "All", "Income", "Expense"], @payment_type),
+                                 class: 'form-select form-select-sm'
+            - if filter_category
+              %div{style:'min-width: 250px'}
+                = label_tag 'Category:', nil, class: 'mt-3'
+                = select_tag 'category',
+                                 options_from_collection_for_select(current_user.categories.order(:name), "id", "name", @category_id),
+                                 prompt: 'All',
+                                 class: 'form-select form-select-sm'
+          = submit_tag 'Apply', class: 'btn btn-primary btn-sm mt-4'
+          = link_to 'Reset', form_tag_path, class: 'btn btn-outline-primary btn-sm mt-4'
 
