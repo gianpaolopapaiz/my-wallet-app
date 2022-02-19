@@ -10,8 +10,12 @@ class Transaction < ApplicationRecord
   validates :description, length: { maximum: 50 }
   validates :value, numericality: true
   # Scopes
-  scope :income , -> { where('value >= 0') }
-  scope :expense, -> { where('value < 0') }
+  scope :filter_by_income , -> { where('value >= 0') }
+  scope :filter_by_expense, -> { where('value < 0') }
+  scope :filter_by_account, -> (account_id) { where('account_id = :account_id', account_id: account_id) }
+  scope :filter_by_category, -> (category_id) { where('category_id = :category_id', category_id: category_id) }
+  scope :filter_by_date, -> (start_date, end_date) { where('date >= :start_date AND date <= :end_date',
+                                                                 start_date: start_date, end_date: end_date) }
 
   def account_balance
     balance = account.initial_amount

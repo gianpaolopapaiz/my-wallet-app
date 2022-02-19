@@ -8,32 +8,7 @@ class AccountsController < ApplicationController
 
   def show
     @transactions = @account.transactions.order(date: :desc)
-    # Filters
-    # Date
-    @start_date = Date.today.at_beginning_of_year
-    @end_date = Date.today.at_end_of_month
-    if !params[:start_date].blank? && !params[:end_date].blank?
-      @start_date = params[:start_date]
-      @end_date = params[:end_date]
-    end
-    @transactions = @transactions.where('date >= :start_date AND date <= :end_date',
-                                        start_date: @start_date, end_date: @end_date)
-    # Payment Type
-    @payment_type = 'All'
-    if params[:payment_type] == 'Income'
-      @transactions = @transactions.income
-      @payment_type = 'Income'
-    end
-    if params[:payment_type] == 'Expense'
-      @transactions = @transactions.expense
-      @payment_type = 'Expense'
-    end
-    # Category
-    @category_id = nil
-    if !params[:category].blank? && params[:category].to_i >= 0
-      @transactions = @transactions.where('category_id = :category_id', category_id: params[:category])
-      @category_id = params[:category]
-    end
+    set_transaction_filter(params)
     @transactions_count = @transactions.count
   end
 
