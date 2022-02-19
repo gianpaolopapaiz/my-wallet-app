@@ -38,7 +38,7 @@
                                         filter_account: false,
                                         filter_payment_type: true,
                                         filter_category: true
-    %hr
+    %hr.wallet-lg
 
     %table.table.table-hover.wallet-lg
       %thead
@@ -62,8 +62,16 @@
 
   %div.wallet-md
     - if @transactions.present?
+      - date = ''
+      - previous_date = ''
       - @transactions.each do |transaction|
+        - date = transaction.date
+        - if date != previous_date
+          %div.d-flex.justify-content-between.align-items-center.mt-4.px-2
+            %h6= long_date(date)
+            = number_to_currency(transaction.account.balance_by_date(date))
         = render 'transactions/transaction_card', transaction: transaction
+        - previous_date = date
 
 - else
   %p (There are no transactions yet.)

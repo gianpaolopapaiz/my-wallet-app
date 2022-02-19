@@ -42,11 +42,9 @@
       = transaction.category&.name || 'None'
       = transaction.subcategory ? ': ' + transaction.subcategory.name : ''
   %div.card-value
-    %div
-      = nice_date(transaction.date)
     %div.value{class: "#{transaction.value_class}"}
       = number_to_currency(transaction.value)
-    %div
+    %div{style: 'min-width:60px'}
       = link_to '', edit_transaction_path(transaction), class: 'fas fa-pencil-alt mx-2',
                                                         title: 'Edit transaction'
       = link_to '', transaction_path(transaction),
