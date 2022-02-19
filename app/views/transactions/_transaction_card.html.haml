@@ -1,0 +1,56 @@
+:scss
+  .transaction-card {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-height: 130px ;
+    column-gap: 10px;
+    .card-info {
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      h6 {
+        font-weight: bold;
+      }
+      .description {
+        font-size: small;
+      }
+      span {
+        font-size: medium;
+      }
+    }
+    .card-value {
+      flex-grow: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      .value {
+        font-size: large;
+      }
+    }
+  }
+
+%div.bg-white.main-box-shadow.default-border-radius.p-3.my-3.transaction-card.default-border-radius.p-3
+  %div.card-info
+    %h6= transaction.name
+    %div.description
+      = transaction.description
+    %div
+      = transaction.category&.name || 'None'
+      = transaction.subcategory ? ': ' + transaction.subcategory.name : ''
+  %div.card-value
+    %div
+      = nice_date(transaction.date)
+    %div.value{class: "#{transaction.value_class}"}
+      = number_to_currency(transaction.value)
+    %div
+      = link_to '', edit_transaction_path(transaction), class: 'fas fa-pencil-alt mx-2',
+                                                        title: 'Edit transaction'
+      = link_to '', transaction_path(transaction),
+                            method: :delete,
+                            data: { confirm: 'Are you sure that you want to delete this transaction?' },
+                            class: 'fas fa-trash-alt',
+                            title: 'Delete transaction'
