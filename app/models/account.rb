@@ -11,6 +11,10 @@ class Account < ApplicationRecord
     initial_amount + transactions.sum(:value)
   end
 
+  def balance_by_date(date)
+    initial_amount + transactions.where("date <= :date", date: date).sum(:value)
+  end
+
   def self.collection_balance
     sum = 0.00
     all.each { |account| sum += (account.balance || 0.00)}
